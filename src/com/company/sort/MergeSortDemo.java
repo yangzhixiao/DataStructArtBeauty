@@ -5,36 +5,36 @@ package com.company.sort;
  */
 public class MergeSortDemo {
 
-    public static void mergeSort(int[] arr, int q, int r) {
+    public static void mergeSort(int[] arr, int p, int r) {
 
         // 当前片段总数
-        int n = r - q + 1;
+        int n = r - p + 1;
 
         if (n <= 1) {
             return;
         }
 
         if (n == 2) {
-            if (arr[r] < arr[q]) {
+            if (arr[r] < arr[p]) {
                 int temp = arr[r];
-                arr[r] = arr[q];
-                arr[q] = temp;
+                arr[r] = arr[p];
+                arr[p] = temp;
             }
             return;
         }
 
         // 分割点
-        int m = n / 2;
+        int q = p + n / 2;
 
-        mergeSort(arr, q, q + m - 1);
-        mergeSort(arr, q + m, r);
+        mergeSort(arr, p, q - 1);
+        mergeSort(arr, q, r);
 
         int[] temp = new int[n];
 
-        int i = q, j = q + m, k = 0;
+        int i = p, j = q, k = 0;
         while (k < n) {
             // 左边已经没有元素，之间拷贝右边
-            if (i > q + m - 1) {
+            if (i > q - 1) {
                 temp[k] = arr[j++];
                 k++;
                 continue;
@@ -56,9 +56,9 @@ public class MergeSortDemo {
             }
         }
 
-        // 复制到原来q到r之间
+        // 复制到原来p到r之间
         for (int index = 0; index < n; index++) {
-            arr[q + index] = temp[index];
+            arr[p + index] = temp[index];
         }
     }
 
